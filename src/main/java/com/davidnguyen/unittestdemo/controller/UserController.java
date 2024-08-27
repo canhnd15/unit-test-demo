@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<UserSdo> update(@RequestParam Long id, @RequestBody UserSdi sdi) throws Exception {
+    public ResponseEntity<UserSdo> update(@RequestParam Long id, @RequestBody UserSdi sdi) {
         return ResponseEntity.ok(userService.update(id, sdi));
     }
 

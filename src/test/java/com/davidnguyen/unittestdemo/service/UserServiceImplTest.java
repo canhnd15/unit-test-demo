@@ -174,4 +174,11 @@ class UserServiceImplTest {
         assertEquals(existUser.getId(), validUser.getId());
         verify(userRepository, times(1)).findById(validUserId);
     }
+
+    @Test
+    void give_an_invalid_id_should_throw_exception_when_find_user_by_id() {
+        Long invalidUserId = -1L;
+        when(userRepository.findById(invalidUserId)).thenReturn(Optional.empty());
+        assertThrows(UserNotFoundException.class, () -> userService.findExistUserById(invalidUserId));
+    }
 }
