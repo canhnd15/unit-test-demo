@@ -5,13 +5,13 @@ import com.davidnguyen.unittestdemo.dto.UserSdo;
 import com.davidnguyen.unittestdemo.entity.User;
 import com.davidnguyen.unittestdemo.exception.UserNotFoundException;
 import com.davidnguyen.unittestdemo.repository.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +27,20 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public UserSdo create(UserSdi sdi) {
-        User createdUser = UserSdi.toEntity(sdi);
+        User user = User.builder()
+                .username(sdi.getUsername())
+                .email(sdi.getEmail())
+                .password(sdi.getPassword())
+                .build();
 
-        createdUser = userRepository.save(createdUser);
+        user = userRepository.save(user);
 
-        return User.toSdo(createdUser);
+        return UserSdo.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .build();
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.davidnguyen.unittestdemo.dto.UserSdo;
 import com.davidnguyen.unittestdemo.entity.User;
 import com.davidnguyen.unittestdemo.exception.UserNotFoundException;
 import com.davidnguyen.unittestdemo.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -48,7 +49,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void when_create_new_user_should_return_created_user() {
+    void when_create_new_user_should_return_created_user() throws JsonProcessingException {
         UserSdi sdi = UserSdi.builder()
                 .username("user")
                 .email("user@gmail.com")

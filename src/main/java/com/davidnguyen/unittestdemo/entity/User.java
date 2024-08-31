@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
 
 @Builder
 @Data
@@ -26,9 +25,11 @@ public class User {
     private String password;
 
     public static UserSdo toSdo(User user) {
-        UserSdo sdo = new UserSdo();
-        BeanUtils.copyProperties(user, sdo);
-
-        return sdo;
+        return UserSdo.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .build();
     }
 }
